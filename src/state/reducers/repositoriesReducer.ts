@@ -1,33 +1,22 @@
+import { ActionType } from "../action-types";
+import { Action } from "../actions";
+
 interface IRepositoriesState {
   loading: boolean;
   error: string | null;
   data: string[];
 }
 
-interface ISearchRepoAction {
-  type: "search_repositories";
-}
-
-interface ISearchRepoSuccess {
-  type: "search_repositories_success";
-  payload: string[];
-}
-
-interface ISearchRepoError {
-  type: "search_repositories_error";
-  payload: string;
-}
-
 const reducer = (
   state: IRepositoriesState,
-  action: ISearchRepoAction | ISearchRepoError | ISearchRepoSuccess
+  action: Action
 ): IRepositoriesState => {
   switch (action.type) {
-    case "search_repositories":
+    case ActionType.SEARCH_REPO:
       return { loading: true, error: null, data: [] };
-    case "search_repositories_success":
+    case ActionType.SEARCH_REPO_SUCCESS:
       return { loading: false, error: null, data: action.payload };
-    case "search_repositories_error":
+    case ActionType.SEARCH_REPO_ERROR:
       return { loading: false, error: action.payload, data: [] };
 
     default:
